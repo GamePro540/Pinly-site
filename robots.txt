@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://gamepro540.github.io/pinly-site/sitemap.xml
