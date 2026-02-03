@@ -5,74 +5,331 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Pinly — Location & Time Reminders</title>
   <meta name="description" content="Pinly helps you remember things at the right place and time with location-based pins, timed reminders, and quiet hours." />
-  <link rel="canonical" href="https://YOURUSERNAME.github.io/pinly-site/" />
-  <meta property="og:title" content="Pinly — Location & Time Reminders" />
-  <meta property="og:description" content="Drop pins and get notified when you arrive. Schedule timed reminders. Keep your tasks simple." />
-  <meta property="og:type" content="website" />
+  
   <style>
-    body { font-family: -apple-system, system-ui, Segoe UI, Roboto, Helvetica, Arial, sans-serif; margin: 0; color: #111; }
-    .wrap { max-width: 920px; margin: 0 auto; padding: 28px 18px; }
-    .hero { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 18px; align-items: center; }
-    @media (max-width: 820px){ .hero{ grid-template-columns: 1fr; } }
-    .card { border: 1px solid #eee; border-radius: 16px; padding: 18px; background: #fff; box-shadow: 0 1px 8px rgba(0,0,0,.04); }
-    h1 { font-size: 38px; margin: 0 0 10px; letter-spacing: -0.02em; }
-    p { line-height: 1.5; margin: 0 0 14px; color:#333; }
-    .btn { display: inline-block; padding: 12px 16px; border-radius: 12px; background: #111; color: #fff; text-decoration: none; font-weight: 600; }
-    .btn.secondary { background: #f3f3f3; color:#111; border: 1px solid #e6e6e6; }
-    ul { margin: 10px 0 0 18px; color:#333; }
-    .grid { display:grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 14px; }
-    @media (max-width: 820px){ .grid{ grid-template-columns: 1fr; } }
-    .footer { margin-top: 24px; font-size: 14px; color:#555; display:flex; gap: 12px; flex-wrap: wrap; }
-    .footer a { color:#111; }
-    .muted { color:#555; font-size: 14px; }
+    /* --- VARIABLES & RESET --- */
+    :root {
+      --bg-color: #fbfbfd;
+      --text-main: #1d1d1f;
+      --text-muted: #86868b;
+      --accent: #000000;
+      --card-bg: #ffffff;
+      --radius: 24px;
+      --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: var(--font-stack);
+      margin: 0;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.5;
+    }
+
+    a { text-decoration: none; color: inherit; transition: opacity 0.2s; }
+    a:hover { opacity: 0.7; }
+
+    /* --- LAYOUT UTILS --- */
+    .container {
+      max-width: 1024px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* --- NAVIGATION --- */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(251, 251, 253, 0.8);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      padding: 16px 0;
+    }
+
+    .nav-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo { font-weight: 700; font-size: 20px; letter-spacing: -0.02em; }
+    
+    .nav-links a {
+      font-size: 14px;
+      color: var(--text-main);
+      margin-left: 24px;
+      font-weight: 500;
+    }
+
+    /* --- HERO SECTION --- */
+    .hero {
+      padding: 100px 0 80px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 60px;
+    }
+
+    .hero-text h1 {
+      font-size: 56px;
+      line-height: 1.05;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin: 0 0 24px;
+    }
+
+    .hero-text p {
+      font-size: 20px;
+      color: var(--text-muted);
+      margin: 0 0 32px;
+      max-width: 440px;
+      line-height: 1.4;
+    }
+
+    /* Buttons */
+    .cta-group { display: flex; gap: 12px; flex-wrap: wrap; }
+    
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 28px;
+      border-radius: 980px; /* Pill shape */
+      font-weight: 600;
+      font-size: 16px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      opacity: 1; /* Override general hover */
+      transform: scale(1.02);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--accent);
+      border: 1px solid rgba(0,0,0,0.1);
+    }
+
+    /* Phone Mockup Placeholder */
+    .phone-mockup {
+      background: #fff;
+      border: 8px solid #111;
+      border-radius: 40px;
+      aspect-ratio: 9/19.5; /* iPhone aspect ratio */
+      width: 100%;
+      max-width: 300px;
+      margin: 0 auto;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-size: cover;
+      background-position: center;
+    }
+
+    /* This mimics the "Dynamic Island" or Notch */
+    .phone-mockup::before {
+      content: '';
+      position: absolute;
+      top: 15px;
+      width: 35%;
+      height: 25px;
+      background: #111;
+      border-radius: 20px;
+      z-index: 2;
+    }
+    
+    /* Placeholder Text inside phone (Remove this when you add an image) */
+    .phone-placeholder-text {
+      color: #ddd;
+      text-align: center;
+      font-size: 14px;
+      padding: 20px;
+    }
+
+    /* --- BENTO GRID FEATURES --- */
+    .section-title {
+      text-align: center;
+      font-size: 32px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin: 60px 0 40px;
+    }
+
+    .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-bottom: 80px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 32px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+      transition: transform 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      height: 100%;
+    }
+
+    .card:hover { transform: translateY(-5px); }
+    .card h3 { margin: 0 0 10px; font-size: 22px; font-weight: 600; }
+    .card p { margin: 0; color: var(--text-muted); font-size: 17px; }
+
+    /* Wide card for FAQ */
+    .card.wide { grid-column: span 3; display: block; }
+    .faq-item { margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 20px; }
+    .faq-item:last-child { border: none; margin: 0; padding: 0; }
+    .faq-q { font-weight: 600; display: block; margin-bottom: 4px; }
+
+    /* --- FOOTER --- */
+    footer {
+      border-top: 1px solid rgba(0,0,0,0.1);
+      padding: 40px 0;
+      margin-top: 40px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+    
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .footer-links a { margin-left: 20px; color: var(--text-muted); }
+    .footer-links a:hover { text-decoration: underline; color: var(--text-main); }
+
+    /* --- RESPONSIVE --- */
+    @media (max-width: 820px) {
+      .hero { grid-template-columns: 1fr; text-align: center; gap: 40px; padding-top: 60px; }
+      .hero-text h1 { font-size: 42px; }
+      .hero-text p { margin: 0 auto 32px; }
+      .cta-group { justify-content: center; }
+      .bento-grid { grid-template-columns: 1fr; }
+      .card.wide { grid-column: span 1; }
+      .nav-links { display: none; /* Simple hiding for mobile, or keep if few links */ }
+    }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="hero">
-      <div>
-        <h1>Pinly</h1>
-        <p>Remember things at the right place and time. Drop location-based pins for arrival alerts, schedule timed reminders, and keep your tasks effortless.</p>
-        <p>
-          <a class="btn" href="https://apps.apple.com/app/idYOUR_APP_ID">Download on the App Store</a>
-          <a class="btn secondary" href="#features">See features</a>
-        </p>
-        <p class="muted">No accounts. No ads. Your data stays on-device and optionally in iCloud.</p>
+
+  <nav>
+    <div class="container nav-content">
+      <a href="#" class="logo">Pinly</a>
+      <div class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#faq">FAQ</a>
+        <a href="support.html">Support</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    
+    <header class="hero">
+      <div class="hero-text">
+        <h1>Remember it.<br>Right there.</h1>
+        <p>Drop location-based pins for arrival alerts, schedule timed reminders, and keep your life effortlessly organized.</p>
+        
+        <div class="cta-group">
+          <a class="btn btn-primary" href="https://apps.apple.com/app/idYOUR_APP_ID">
+            <svg style="width:18px; height:18px; margin-right:8px; fill:currentColor;" viewBox="0 0 384 512"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 52.3-11.4 69.5-34.3z"/></svg>
+            Download on App Store
+          </a>
+          <a class="btn btn-secondary" href="#features">Learn more</a>
+        </div>
       </div>
 
+      <div class="phone-mockup">
+        <div class="phone-placeholder-text">
+          Add your app screenshot here<br><br>
+          (Aspect ratio 9:19.5)
+        </div>
+      </div>
+    </header>
+
+    <h2 id="features" class="section-title">Everything you need.</h2>
+
+    <div class="bento-grid">
       <div class="card">
-        <strong>Quick FAQ</strong>
-        <ul>
-          <li><b>Does Pinly track me?</b> No. Location is used on-device for geofencing.</li>
-          <li><b>Does it work offline?</b> Yes—reminders are local.</li>
-          <li><b>How do I contact support?</b> See the Support page below.</li>
-        </ul>
+        <h3>📍 Location Alerts</h3>
+        <p>Get notified exactly when you arrive. Perfect for groceries or errands.</p>
+      </div>
+      <div class="card">
+        <h3>⏰ Timed Reminders</h3>
+        <p>Schedule alerts for specific dates and times. Never miss a deadline.</p>
+      </div>
+      <div class="card">
+        <h3>⚡️ Quick Widgets</h3>
+        <p>Glanceable widgets on your Home Screen and Lock Screen.</p>
+      </div>
+      <div class="card">
+        <h3>🔒 Private by Design</h3>
+        <p>No tracking. Your data stays on your device and your iCloud.</p>
+      </div>
+      <div class="card">
+        <h3>🌙 Dark Mode</h3>
+        <p>Beautifully designed for both light and dark appearances.</p>
+      </div>
+      <div class="card">
+        <h3>🔋 Battery Efficient</h3>
+        <p>Optimized geofencing that doesn't drain your battery life.</p>
+      </div>
+
+      <div id="faq" class="card wide">
+        <h3 style="margin-bottom:24px">Frequently Asked Questions</h3>
+        
+        <div class="faq-item">
+          <span class="faq-q">Does Pinly track my location?</span>
+          <span class="muted">No. Location data is processed strictly on-device for geofencing triggers.</span>
+        </div>
+        
+        <div class="faq-item">
+          <span class="faq-q">Does it work offline?</span>
+          <span class="muted">Yes—all reminders are stored locally.</span>
+        </div>
+        
+        <div class="faq-item">
+          <span class="faq-q">Is there a subscription?</span>
+          <span class="muted">Pinly is free to use with optional tips to support development.</span>
+        </div>
       </div>
     </div>
 
-    <div id="features" class="grid">
-      <div class="card">
-        <strong>Location reminders</strong>
-        <p>Get notified when you arrive near pinned places (geofencing).</p>
+    <footer>
+      <div class="footer-content">
+        <span>© <span id="year"></span> Pinly. All rights reserved.</span>
+        <div class="footer-links">
+          <a href="privacy.html">Privacy</a>
+          <a href="terms.html">Terms</a>
+          <a href="support.html">Support</a>
+        </div>
       </div>
-      <div class="card">
-        <strong>Timed reminders</strong>
-        <p>Schedule reminders for specific dates and times.</p>
-      </div>
-      <div class="card">
-        <strong>Widgets & quick add</strong>
-        <p>Fast entry from the Home screen and glanceable widgets.</p>
-      </div>
-    </div>
+    </footer>
 
-    <div class="footer">
-      <span>© <span id="y"></span> Pinly</span>
-      <a href="privacy.html">Privacy Policy</a>
-      <a href="terms.html">Terms</a>
-      <a href="support.html">Support</a>
-    </div>
   </div>
 
-  <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
