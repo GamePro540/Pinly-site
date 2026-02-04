@@ -6,6 +6,9 @@
   <title>Pinly — Location & Time Reminders</title>
   <meta name="description" content="Pinly helps you remember things at the right place and time with location-based pins, timed reminders, and quiet hours." />
   
+  <link rel="icon" type="image/jpeg" href="PinlyIconiOs.jpg" />
+  <link rel="apple-touch-icon" href="PinlyIconiOs.jpg" />
+  
   <style>
     /* --- VARIABLES & RESET --- */
     :root {
@@ -57,7 +60,20 @@
       align-items: center;
     }
 
-    .logo { font-weight: 700; font-size: 20px; letter-spacing: -0.02em; }
+    .logo-container {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 700; 
+        font-size: 20px; 
+        letter-spacing: -0.02em;
+    }
+
+    .logo-img {
+        width: 28px;
+        height: 28px;
+        border-radius: 6px;
+    }
     
     .nav-links a {
       font-size: 14px;
@@ -122,43 +138,38 @@
       border: 1px solid rgba(0,0,0,0.1);
     }
 
-    /* Phone Mockup Placeholder */
+    /* Phone Mockup */
     .phone-mockup {
-      background: #fff;
-      border: 8px solid #111;
-      border-radius: 40px;
-      aspect-ratio: 9/19.5; /* iPhone aspect ratio */
+      background: #000; /* Black background behind image */
+      border: 10px solid #111;
+      border-radius: 46px;
+      aspect-ratio: 9/19.5;
       width: 100%;
-      max-width: 300px;
+      max-width: 320px;
       margin: 0 auto;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.3);
       position: relative;
       overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      
+      /* IMAGE SETTINGS */
       background-size: cover;
       background-position: center;
+      /* Smooth transition if image loads slowly */
+      transition: opacity 0.5s ease;
     }
 
-    /* This mimics the "Dynamic Island" or Notch */
+    /* The "Dynamic Island" / Notch */
     .phone-mockup::before {
       content: '';
       position: absolute;
       top: 15px;
-      width: 35%;
-      height: 25px;
-      background: #111;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 30%;
+      height: 26px;
+      background: #000;
       border-radius: 20px;
       z-index: 2;
-    }
-    
-    /* Placeholder Text inside phone (Remove this when you add an image) */
-    .phone-placeholder-text {
-      color: #ddd;
-      text-align: center;
-      font-size: 14px;
-      padding: 20px;
     }
 
     /* --- BENTO GRID FEATURES --- */
@@ -185,13 +196,13 @@
       transition: transform 0.3s ease;
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: start;
       height: 100%;
     }
 
     .card:hover { transform: translateY(-5px); }
-    .card h3 { margin: 0 0 10px; font-size: 22px; font-weight: 600; }
-    .card p { margin: 0; color: var(--text-muted); font-size: 17px; }
+    .card h3 { margin: 0 0 10px; font-size: 20px; font-weight: 600; }
+    .card p { margin: 0; color: var(--text-muted); font-size: 16px; line-height: 1.5; }
 
     /* Wide card for FAQ */
     .card.wide { grid-column: span 3; display: block; }
@@ -226,7 +237,7 @@
       .cta-group { justify-content: center; }
       .bento-grid { grid-template-columns: 1fr; }
       .card.wide { grid-column: span 1; }
-      .nav-links { display: none; /* Simple hiding for mobile, or keep if few links */ }
+      .nav-links { display: none; }
     }
   </style>
 </head>
@@ -234,7 +245,10 @@
 
   <nav>
     <div class="container nav-content">
-      <a href="#" class="logo">Pinly</a>
+      <a href="#" class="logo-container">
+          <img src="PinlyIconiOs.jpg" alt="Pinly Logo" class="logo-img">
+          Pinly
+      </a>
       <div class="nav-links">
         <a href="#features">Features</a>
         <a href="#faq">FAQ</a>
@@ -247,8 +261,8 @@
     
     <header class="hero">
       <div class="hero-text">
-        <h1>Remember it.<br>Right there.</h1>
-        <p>Drop location-based pins for arrival alerts, schedule timed reminders, and keep your life effortlessly organized.</p>
+        <h1>Right Place.<br>Right Time.</h1>
+        <p>Pinly helps you remember things exactly when and where you need them. From geofenced alerts to daily schedules, keep your tasks simple and context-aware.</p>
         
         <div class="cta-group">
           <a class="btn btn-primary" href="https://apps.apple.com/app/idYOUR_APP_ID">
@@ -259,40 +273,35 @@
         </div>
       </div>
 
-      <div class="phone-mockup">
-        <div class="phone-placeholder-text">
-          Add your app screenshot here<br><br>
-          (Aspect ratio 9:19.5)
-        </div>
-      </div>
+      <div class="phone-mockup" style="background-image: url('app-screen.jpg');"></div>
     </header>
 
-    <h2 id="features" class="section-title">Everything you need.</h2>
+    <h2 id="features" class="section-title">Context-aware & Simple.</h2>
 
     <div class="bento-grid">
       <div class="card">
         <h3>📍 Location Alerts</h3>
-        <p>Get notified exactly when you arrive. Perfect for groceries or errands.</p>
+        <p>Drop a pin anywhere. Get notified when you arrive or leave that specific area.</p>
       </div>
       <div class="card">
         <h3>⏰ Timed Reminders</h3>
-        <p>Schedule alerts for specific dates and times. Never miss a deadline.</p>
+        <p>Set a date and time. Repeat daily or exclude specific weekdays easily.</p>
       </div>
       <div class="card">
-        <h3>⚡️ Quick Widgets</h3>
-        <p>Glanceable widgets on your Home Screen and Lock Screen.</p>
+        <h3>🏷️ Smart Organization</h3>
+        <p>Tag your pins (e.g., “Groceries”, “Work”) and filter to see only what matters.</p>
       </div>
       <div class="card">
-        <h3>🔒 Private by Design</h3>
-        <p>No tracking. Your data stays on your device and your iCloud.</p>
+        <h3>🌙 Quiet Hours (Pro)</h3>
+        <p>Silence notifications during your downtime, like evenings or nights.</p>
       </div>
       <div class="card">
-        <h3>🌙 Dark Mode</h3>
-        <p>Beautifully designed for both light and dark appearances.</p>
+        <h3>📝 Simple Notes</h3>
+        <p>Create lightweight, non-timed reminders for quick checklists.</p>
       </div>
       <div class="card">
-        <h3>🔋 Battery Efficient</h3>
-        <p>Optimized geofencing that doesn't drain your battery life.</p>
+        <h3>🔒 Data Control</h3>
+        <p>Automatic local saving, iCloud backup support, and JSON export options.</p>
       </div>
 
       <div id="faq" class="card wide">
@@ -300,17 +309,17 @@
         
         <div class="faq-item">
           <span class="faq-q">Does Pinly track my location?</span>
-          <span class="muted">No. Location data is processed strictly on-device for geofencing triggers.</span>
+          <span class="muted">No. Location data is processed strictly on-device for geofencing triggers. We don't see your data.</span>
         </div>
         
         <div class="faq-item">
-          <span class="faq-q">Does it work offline?</span>
-          <span class="muted">Yes—all reminders are stored locally.</span>
+          <span class="faq-q">Can I backup my data?</span>
+          <span class="muted">Yes. Pinly supports iCloud backup/restore and local JSON export (Pro).</span>
         </div>
         
         <div class="faq-item">
-          <span class="faq-q">Is there a subscription?</span>
-          <span class="muted">Pinly is free to use with optional tips to support development.</span>
+          <span class="faq-q">Is it free?</span>
+          <span class="muted">Pinly is free to use. Optional "Pro" features (like Quiet Hours and custom geofence radius) support development.</span>
         </div>
       </div>
     </div>
