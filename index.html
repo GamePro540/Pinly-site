@@ -3,11 +3,19 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Pinly — Location & Time Reminders</title>
-  <meta name="description" content="Pinly helps you remember things at the right place and time with location-based pins, timed reminders, and quiet hours." />
+  
+  <title>Pinly — Smart Location & Time Reminders App</title>
+  <meta name="description" content="Pinly is the smart reminder app for iOS. Set effortless location-based alerts and timed reminders. Privacy-focused and simple to use." />
+  
+  <meta property="og:title" content="Pinly — Smart Location & Time Reminders" />
+  <meta property="og:description" content="Never forget a task again. Drop a pin and get notified when you arrive. Simple, private, and smart." />
+  <meta property="og:image" content="https://pinlyreminders.com/app-screen.jpg" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://pinlyreminders.com/" />
   
   <link rel="icon" type="image/png" href="PinlyIconiOs.png" />
   <link rel="apple-touch-icon" href="PinlyIconiOs.png" />
+  <link rel="canonical" href="https://pinlyreminders.com/" />
   
   <style>
     /* --- VARIABLES & RESET --- */
@@ -60,19 +68,24 @@
       align-items: center;
     }
 
+    /* UPDATED LOGO CSS FOR ALIGNMENT */
     .logo-container {
         display: flex;
         align-items: center;
-        gap: 10px;
+        gap: 12px;
         font-weight: 700; 
         font-size: 20px; 
         letter-spacing: -0.02em;
+        color: var(--text-main);
+        text-decoration: none;
     }
 
     .logo-img {
-        width: 28px;
-        height: 28px;
-        border-radius: 6px;
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+        object-fit: contain; /* Ensures valid display */
+        display: block;
     }
     
     .nav-links a {
@@ -140,7 +153,7 @@
 
     /* Phone Mockup */
     .phone-mockup {
-      background: #000; /* Black background behind image */
+      background: #000;
       border: 10px solid #111;
       border-radius: 46px;
       aspect-ratio: 9/19.5;
@@ -151,14 +164,11 @@
       position: relative;
       overflow: hidden;
       
-      /* IMAGE SETTINGS */
       background-size: cover;
       background-position: center;
-      /* Smooth transition if image loads slowly */
       transition: opacity 0.5s ease;
     }
 
-    /* The "Dynamic Island" / Notch */
     .phone-mockup::before {
       content: '';
       position: absolute;
@@ -245,9 +255,9 @@
 
   <nav>
     <div class="container nav-content">
-      <a href="#" class="logo-container">
+      <a href="index.html" class="logo-container">
           <img src="PinlyIconiOs.png" alt="Pinly Logo" class="logo-img">
-          Pinly
+          <span>Pinly</span>
       </a>
       <div class="nav-links">
         <a href="#features">Features</a>
@@ -261,7 +271,7 @@
     
     <header class="hero">
       <div class="hero-text">
-        <h1>Right Place.<br>Right Time.</h1>
+        <h1>Smart Reminders.<br>Right Place & Time.</h1>
         <p>Pinly helps you remember things exactly when and where you need them. From geofenced alerts to daily schedules, keep your tasks simple and context-aware.</p>
         
         <div class="cta-group">
